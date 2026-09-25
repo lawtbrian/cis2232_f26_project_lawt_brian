@@ -4,8 +4,8 @@ CIS2232 Project
 
 ## Development Team
 
-Business Client: Brian Lawt  
-Lead Developer: Prabin  
+Business Client: Prabin
+Lead Developer: Brian 
 Quality Control: Harry  
 
 ## Description
