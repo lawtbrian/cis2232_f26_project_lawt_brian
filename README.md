@@ -18,7 +18,7 @@ The initial web application will focus on entering, viewing, updating, and compa
 
 ## Color
 
-Deep Navy Blue
+Main Color: Deep Navy Blue
 
 ## Required Fields
 
