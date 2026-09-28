@@ -6,11 +6,11 @@ html{
 
 :root {
     /* Auto Track - Deep Navy Blue color scheme */
-    --main-color-light: #001F3F;
+    --main-color-light: #E8EEF5;
     --main-color-primary: #001F3F;
-    --main-color-dark: #001F3F;
+    --main-color-dark: #00152B;
     --main-color-text: #FFFFFF;
-    --main-color-bright: #001F3F;
+    --main-color-bright: #4DA3FF;
 }
 
 /*input:not(.hidden){
