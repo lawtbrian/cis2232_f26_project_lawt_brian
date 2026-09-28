@@ -5,14 +5,12 @@ html{
 }
 
 :root {
-    /*Variable for team color*/
-    /*light ac3e37 main 770711 dark 470000*/
-    --main-color-light: #4CBB17 ;
-    --main-color-primary: #4CBB17 ;
-    --main-color-dark: #000000;
-    --main-color-text: #ffffff;
-    --main-color-bright:#90EE90;
-
+    /* Auto Track - Deep Navy Blue color scheme */
+    --main-color-light: #001F3F;
+    --main-color-primary: #001F3F;
+    --main-color-dark: #001F3F;
+    --main-color-text: #FFFFFF;
+    --main-color-bright: #001F3F;
 }
 
 /*input:not(.hidden){
