@@ -11,6 +11,9 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import ca.hccis.files.bo.VehicleBO;
+import java.util.InputMismatchException;
+
 
 public class Controller {
 
@@ -23,7 +26,7 @@ public class Controller {
     public static final String MENU =
             "A) Add" + System.lineSeparator()
                     + "V) View" + System.lineSeparator()
-                    + "X) eXit";
+                    + "X) exit";
 
     // Stores all of the vehicles
     private static HashMap<Integer, Vehicle> vehicleMap = new HashMap<>();
@@ -42,6 +45,10 @@ public class Controller {
         // Load any vehicles that were previously saved
         readAll();
 
+        // Start the JOptionPane interface on a separate thread
+        Thread jOptionPaneThread = new Thread(new JOptionPaneThread());
+        jOptionPaneThread.start();
+
         String option = "";
 
         // Keep showing the menu until the user chooses X
@@ -57,7 +64,7 @@ public class Controller {
 
             if (option.equalsIgnoreCase("A")) {
 
-                addVehicle();
+                addVehicle(input);
 
             } else if (option.equalsIgnoreCase("V")) {
 
@@ -89,30 +96,52 @@ public class Controller {
     /**
      * Add a new vehicle.
      */
-    public static void addVehicle() {
+    public static void addVehicle(Scanner input) {
 
-        // Automatically determine the next vehicle ID
-        int vehicleId = getNextVehicleId();
+        Vehicle vehicle = new Vehicle();
 
-        Vehicle vehicle = new Vehicle(vehicleId);
+        // Collect vehicle info from the console
+        try {
+            vehicle.getInformation(input);
+        } catch (InputMismatchException e) {
+            System.out.println(
+                    "Invalid input. Vehicle was not saved."
+            );
+            return;
+        }
 
-        // Ask the user for the vehicle information
-        vehicle.getInformation();
+        try {
+            // Save using the shared method
+            int vehicleId = saveVehicle(vehicle);
 
-        // Add the vehicle to the HashMap
-        vehicleMap.put(vehicleId, vehicle);
+            VehicleBO vehicleBO = new VehicleBO();
+            double totalCost = vehicleBO.calculate(vehicle);
 
-        // Save the vehicles to the JSON file
-        writeAll();
+            System.out.println("Vehicle added successfully.");
+            System.out.println("Vehicle ID: " + vehicleId);
+            System.out.printf("Total Estimated Cost: $%.2f%n", totalCost);
+            System.out.println("Total vehicles: " + getVehicleCount());
 
-        System.out.println("Vehicle added successfully.");
+        } catch (IllegalStateException e) {
+
+            System.out.println(
+                    "Error: Unable to save vehicle to the JSON file."
+            );
+        }
+    }
+
+    /**
+     * Return the combined number of vehicles.
+     */
+    public static synchronized int getVehicleCount() {
+        return vehicleMap.size();
     }
 
 
     /**
      * Determine the next available vehicle ID.
      */
-    public static int getNextVehicleId() {
+    public static synchronized int getNextVehicleId() {
 
         int highestId = 0;
 
@@ -130,7 +159,7 @@ public class Controller {
     /**
      * Display all vehicles.
      */
-    public static void viewAll() {
+    public static synchronized void viewAll() {
 
         if (vehicleMap.isEmpty()) {
 
@@ -150,11 +179,40 @@ public class Controller {
         }
     }
 
+    /**
+     * Return all vehicles as a String for JOptionPane
+     *
+     * @return The combined vehicle information
+     */
+    public static synchronized String getAllVehicles() {
+
+        if (vehicleMap.isEmpty()) {
+            return "No vehicles have been added.\n\nTotal vehicles: 0";
+        }
+
+        StringBuilder result = new StringBuilder();
+
+        result.append("--- Vehicles ---\n");
+
+        for (Vehicle currentVehicle : vehicleMap.values()) {
+
+            result.append("\n");
+            result.append(currentVehicle.toString());
+            result.append("\n--------------------\n");
+
+        }
+
+        result.append("\nTotal vehicles: ");
+        result.append(vehicleMap.size());
+
+        return result.toString();
+    }
+
 
     /**
      * Save all vehicles to the JSON file.
      */
-    public static void writeAll() {
+    public static synchronized void writeAll() {
 
         try {
 
@@ -171,8 +229,9 @@ public class Controller {
             writer.close();
 
         } catch (IOException e) {
-
-            e.printStackTrace();
+            throw new IllegalStateException(
+                    "Unable to save vehicles to the JSON file.", e
+            );
         }
     }
 
@@ -180,7 +239,7 @@ public class Controller {
     /**
      * Read previously saved vehicles from the JSON file.
      */
-    public static void readAll() {
+    public static synchronized void readAll() {
 
         vehicleMap.clear();
 
@@ -213,5 +272,31 @@ public class Controller {
 
             e.printStackTrace();
         }
+    }
+    /**
+     * Add a vehicle from either thread and save the
+     * combined vehicle information.
+     *
+     * @param vehicle The vehicle being added
+     * @return The assigned vehicle ID
+     */
+    public static synchronized int saveVehicle(Vehicle vehicle) {
+
+        int vehicleId = getNextVehicleId();
+
+        vehicle.setVehicleId(vehicleId);
+        vehicleMap.put(vehicleId, vehicle);
+
+        try {
+            writeAll();
+        } catch (IllegalStateException e) {
+
+            // Remove the vehicle if saving fails
+            vehicleMap.remove(vehicleId);
+
+            throw e;
+        }
+
+        return vehicleId;
     }
 }

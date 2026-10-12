@@ -23,8 +23,8 @@ public class Vehicle {
         this.vehicleId = vehicleId;
     }
 
-    public void getInformation(){
-        Scanner input = new Scanner(System.in);
+    public void getInformation(Scanner input){
+
 
         System.out.print("Enter make: ");
         make = input.nextLine();
@@ -58,6 +58,9 @@ public class Vehicle {
 
         System.out.print("Enter other costs: ");
         otherCosts = input.nextDouble();
+
+        //Clear the newline before retunring to the menu
+        input.nextLine();
     }
     public int getVehicleId() {
         return vehicleId;

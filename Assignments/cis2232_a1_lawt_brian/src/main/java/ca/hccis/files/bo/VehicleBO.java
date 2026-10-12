@@ -2,6 +2,7 @@ package ca.hccis.files.bo;
 
 import ca.hccis.files.entity.Vehicle;
 
+
 /**
  * Business object used to perform calculations for Auto Track vehicles.
  *
