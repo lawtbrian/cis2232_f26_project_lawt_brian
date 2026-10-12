@@ -104,6 +104,9 @@ public class Controller {
         try {
             vehicle.getInformation(input);
         } catch (InputMismatchException e) {
+
+            input.nextLine(); // Clear invalid input
+
             System.out.println(
                     "Invalid input. Vehicle was not saved."
             );
