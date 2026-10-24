@@ -52,4 +52,52 @@ The calculation uses several fields entered by the user and provides a simple wa
 
 ## Report Details
 
-To be determined in future sprint
+
+## 📊 Report Details
+
+### Vehicle Search Report
+
+**Use Case:** Allow users to search for vehicles by make or model and view their information and estimated costs.
+
+**Output:** Vehicle information displayed in a table format.
+
+**Description:** Users can enter a vehicle make or model to search for matching vehicles stored in the database. The report will display all matching vehicles along with their details and estimated costs.
+
+**Report Data Includes:**
+- Vehicle ID
+- Make
+- Model
+- Year
+- Mileage
+- Asking Price
+- Estimated Repairs
+- Other Costs
+- Total Estimated Cost
+- Market Value
+- Potential Difference
+
+---
+
+### Vehicle Cost Comparison Report
+
+**Use Case:** Allow users to compare the estimated total costs and market values of multiple vehicles.
+
+**Output:** Vehicle cost information displayed in a bar chart.
+
+**Description:** Users can select multiple vehicles from the database to compare their estimated total costs against their market values. The report will display a bar chart showing the financial differences between the selected vehicles.
+
+**Report Data Includes:**
+- Vehicle Make and Model
+- Vehicle Year
+- Total Estimated Cost
+- Market Value
+- Potential Difference
+
+**Chart Details:**
+- Horizontal Axis (X): Vehicle Make, Model, and Year
+- Vertical Axis (Y): Dollar Amount ($)
+- First Bar: Total Estimated Cost
+- Second Bar: Market Value
+
+This report will help users identify which vehicles offer the best potential financial value by comparing their estimated expenses against their market values.
+
