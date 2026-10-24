@@ -39,16 +39,29 @@ Main Color: Deep Navy Blue
 
 ## Calculation
 
-Auto Track will calculate the Total Estimated Cost of a vehicle by combining the asking price, estimated repair costs, and other estimated costs associated with purchasing the vehicle.
-Total Estimated Cost = Asking Price + Estimated Repairs + Other Costs
-For example, if a vehicle has an asking price of $12,500, estimated repairs of $800, and other costs of $500, the Total Estimated Cost would be:
-$12,500 + $800 + $500 = $13,800
+Auto Track will calculate the Total Estimated Cost of a vehicle by combining the asking price, estimated repair costs, and other costs associated with purchasing the vehicle.
+
+**Total Estimated Cost = Asking Price + Estimated Repairs + Other Costs**
+
+For example, if a vehicle has:
+- Asking Price: $12,500
+- Estimated Repairs: $800
+- Other Costs: $500
+
+**Total Estimated Cost = $12,500 + $800 + $500 = $13,800**
+
 The system will then compare the Total Estimated Cost with the vehicle's estimated market value to calculate the Potential Difference.
-Potential Difference = Market Value − Total Estimated Cost
-If the estimated market value is $15,000, the Potential Difference would be:
-$15,000 − $13,800 = $1,200
-Estimated Repairs and Other Costs can be entered as $0 when there are no additional costs. This allows the calculation to work for vehicles that do not require repairs or have additional expenses.
-The calculation uses several fields entered by the user and provides a simple way to understand the vehicle's estimated overall purchase cost compared with its estimated market value.
+
+**Potential Difference = Market Value - Total Estimated Cost**
+
+If the estimated market value is $15,000:
+
+**Potential Difference = $15,000 - $13,800 = $1,200**
+
+Estimated Repairs and Other Costs can be entered as $0 when there are no additional costs.
+
+This calculation helps users understand the estimated overall purchase cost of a vehicle compared with its market value.
+
 
 
 ## Report Details
