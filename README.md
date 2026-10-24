@@ -51,7 +51,7 @@ Estimated Repairs and Other Costs can be entered as $0 when there are no additio
 The calculation uses several fields entered by the user and provides a simple way to understand the vehicle's estimated overall purchase cost compared with its estimated market value.
 
 
-## 📊 Report Details
+## Report Details
 
 ### Vehicle Search Report
 
