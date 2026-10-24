@@ -50,8 +50,6 @@ $15,000 − $13,800 = $1,200
 Estimated Repairs and Other Costs can be entered as $0 when there are no additional costs. This allows the calculation to work for vehicles that do not require repairs or have additional expenses.
 The calculation uses several fields entered by the user and provides a simple way to understand the vehicle's estimated overall purchase cost compared with its estimated market value.
 
-## Report Details
-
 
 ## 📊 Report Details
 
