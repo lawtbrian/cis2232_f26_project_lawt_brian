@@ -11,3 +11,5 @@ public class TheApplication {
 	}
 
 }
+//Vehicle Search Report link: http://localhost:8080/auto-track/reports/search
+//Vehicle Cost Comparison Report link: http://localhost:8080/auto-track/reports/comparison

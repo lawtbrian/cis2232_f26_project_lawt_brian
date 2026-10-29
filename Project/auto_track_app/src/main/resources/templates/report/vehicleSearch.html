@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Track - Vehicle Search Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        h1 {
+            color: #142D4E;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #142D4E;
+            color: white;
+        }
+
+        button {
+            background-color: #142D4E;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Auto Track - Vehicle Search Report</h1>
+
+<form th:action="@{/reports/search/results}"
+      method="get">
+
+    <label for="searchText">Vehicle Make or Model:</label>
+
+    <input type="text"
+           id="searchText"
+           name="searchText"
+           th:value="${searchText}"
+           required>
+
+    <button type="submit">Search</button>
+</form>
+
+<p th:if="${error}" th:text="${error}"></p>
+<p th:if="${message}" th:text="${message}"></p>
+
+<div th:if="${vehicles != null}">
+
+    <h2>Search Results</h2>
+
+    <p th:if="${#lists.isEmpty(vehicles)}">
+        No matching vehicles found.
+    </p>
+
+    <table th:unless="${#lists.isEmpty(vehicles)}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Mileage</th>
+            <th>Asking Price</th>
+            <th>Repairs</th>
+            <th>Other Costs</th>
+            <th>Total Cost</th>
+            <th>Market Value</th>
+            <th>Difference</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="vehicle : ${vehicles}">
+            <td th:each="value : ${vehicle}"
+                th:text="${value}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

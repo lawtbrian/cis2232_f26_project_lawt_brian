@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Auto Track - Vehicle Cost Comparison</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+
+    h1 {
+      color: #142D4E;
+    }
+
+    button {
+      background-color: #142D4E;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #142D4E;
+      color: white;
+    }
+
+    .chart {
+      margin-top: 30px;
+    }
+
+    .chart-row {
+      margin-bottom: 24px;
+    }
+
+    .bar {
+      height: 24px;
+      margin: 5px 0;
+      color: white;
+      padding-left: 8px;
+      line-height: 24px;
+      box-sizing: border-box;
+    }
+
+    .total-cost {
+      background-color: #142D4E;
+    }
+
+    .market-value {
+      background-color: #388E8E;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Auto Track - Vehicle Cost Comparison Report</h1>
+
+<form th:action="@{/reports/comparison/results}" method="get">
+  <label for="searchText">Vehicle Make or Model:</label>
+  <input type="text" id="searchText" name="searchText"
+         th:value="${searchText}">
+  <button type="submit">Compare Vehicles</button>
+</form>
+
+<p th:if="${error}" th:text="${error}"></p>
+<p th:if="${message}" th:text="${message}"></p>
+
+<div th:if="${vehicles != null}">
+  <h2>Comparison Results</h2>
+
+  <p th:if="${#lists.isEmpty(vehicles)}">
+    No matching vehicles found.
+  </p>
+
+  <table th:unless="${#lists.isEmpty(vehicles)}">
+    <thead>
+    <tr>
+      <th>Vehicle</th>
+      <th>Total Estimated Cost</th>
+      <th>Market Value</th>
+      <th>Potential Difference</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vehicle : ${vehicles}">
+      <td th:text="${vehicle[1] + ' ' + vehicle[2] + ' ' + vehicle[3]}"></td>
+      <td th:text="${vehicle[8]}"></td>
+      <td th:text="${vehicle[9]}"></td>
+      <td th:text="${vehicle[10]}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2>Cost Comparison Chart</h2>
+
+  <div class="chart">
+    <div class="chart-row" th:each="vehicle : ${vehicles}">
+      <h3 th:text="${vehicle[1] + ' ' + vehicle[2] + ' ' + vehicle[3]}"></h3>
+
+      <div class="bar total-cost"
+           th:style="|width: ${T(java.lang.Double).parseDouble(vehicle[8]) / chartMax * 100}%|">
+        Total Cost
+      </div>
+
+      <div class="bar market-value"
+           th:style="|width: ${T(java.lang.Double).parseDouble(vehicle[9]) / chartMax * 100}%|">
+        Market Value
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
