@@ -70,11 +70,14 @@ This calculation helps users understand the estimated overall purchase cost of a
 
 **Use Case:** Allow users to search for vehicles by make or model and view their information and estimated costs.
 
+**Input:** Users enter a vehicle make or model to search for matching vehicles.
+
 **Output:** Vehicle information displayed in a table format.
 
 **Description:** Users can enter a vehicle make or model to search for matching vehicles stored in the database. The report will display all matching vehicles along with their details and estimated costs.
 
 **Report Data Includes:**
+
 - Vehicle ID
 - Make
 - Model
@@ -87,17 +90,23 @@ This calculation helps users understand the estimated overall purchase cost of a
 - Market Value
 - Potential Difference
 
+**File Output:** The report results are automatically saved to a timestamped text file in `C:\cis2232`.
+
 ---
+
 
 ### Vehicle Cost Comparison Report
 
-**Use Case:** Allow users to compare the estimated total costs and market values of multiple vehicles.
+**Use Case:** Allow users to compare the estimated total costs and market values of vehicles stored in the database.
 
-**Output:** Vehicle cost information displayed in a bar chart.
+**Input:** Users can enter a vehicle make or model to compare matching vehicles. Leaving the search field blank displays all vehicles.
 
-**Description:** Users can select multiple vehicles from the database to compare their estimated total costs against their market values. The report will display a bar chart showing the financial differences between the selected vehicles.
+**Output:** Vehicle cost information displayed in a comparison table and horizontal bar chart.
+
+**Description:** Users can search for vehicles by make or model to compare their estimated total costs against their market values. The report displays a table and horizontal bar chart showing the financial differences between vehicles.
 
 **Report Data Includes:**
+
 - Vehicle Make and Model
 - Vehicle Year
 - Total Estimated Cost
@@ -105,10 +114,43 @@ This calculation helps users understand the estimated overall purchase cost of a
 - Potential Difference
 
 **Chart Details:**
-- Horizontal Axis (X): Vehicle Make, Model, and Year
-- Vertical Axis (Y): Dollar Amount ($)
-- First Bar: Total Estimated Cost
-- Second Bar: Market Value
 
-This report will help users identify which vehicles offer the best potential financial value by comparing their estimated expenses against their market values.
+| Component | Description |
+| --- | --- |
+| Chart Type | Horizontal Bar Chart |
+| Categories | Vehicle Make, Model, and Year |
+| Values | Dollar Amount ($) |
+| First Bar | Total Estimated Cost |
+| Second Bar | Market Value |
+
+**File Output:** The report results are automatically saved to a timestamped text file in `C:\cis2232`.
+
+This report helps users identify which vehicles offer the best potential financial value by comparing their estimated expenses against their market values.
+
+---
+
+## Sprint 2 — JDBC and File I/O
+
+Both Auto Track reports retrieve vehicle information from the MySQL database using JDBC through the `VehicleReportDAO` class.
+
+The DAO uses `PreparedStatement` to execute SQL queries and `ResultSet` to retrieve matching vehicle records.
+
+When a report is generated, the application displays the results on the webpage and automatically saves them to a timestamped text file in the `C:\cis2232` folder.
+
+### Report Files
+
+| Report | Filename Format |
+| --- | --- |
+| Vehicle Search Report | `VehicleSearchReport_yyyyMMdd_HHmmss_SSS.txt` |
+| Vehicle Cost Comparison Report | `VehicleCostComparison_yyyyMMdd_HHmmss_SSS.txt` |
+
+### Report URLs
+
+The following URLs are available when the Spring Boot application is running locally.
+
+| Report | URL |
+| --- | --- |
+| Vehicle Search Report | [Open Vehicle Search](http://localhost:8080/auto-track/reports/search) |
+| Vehicle Cost Comparison Report | [Open Cost Comparison](http://localhost:8080/auto-track/reports/comparison) |
+
 
