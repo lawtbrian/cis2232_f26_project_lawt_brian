@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<!--
+    Project: Auto Track - Vehicle Cost & Maintenance Manager
+    Course: CIS-2232
+    Sprint: 3 - MVC, CRUD, JPA, and Validation
+    File: form.html
+    Author: Brian Lawt
+    Date: November 18, 2026
+
+    Purpose:
+    Provides a reusable form for adding and updating
+    vehicle records using Spring MVC, Thymeleaf,
+    Spring Data JPA, and Spring Validation.
+-->
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+
+  <title th:text="${vehicle.vehicleId == null}
+            ? 'Auto Track - Add Vehicle'
+            : 'Auto Track - Edit Vehicle'">
+    Auto Track - Vehicle Form
+  </title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+    }
+
+    header {
+      background-color: #142d4e;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 650px;
+      margin: 30px auto;
+      padding: 25px;
+      background-color: white;
+      border-radius: 8px;
+    }
+
+    h2 {
+      color: #142d4e;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button, .button {
+      display: inline-block;
+      background-color: #142d4e;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+
+    .button {
+      background-color: #666;
+    }
+
+    .error {
+      color: #b3261e;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .input-error {
+      border: 2px solid #b3261e;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Auto Track</h1>
+  <p>Vehicle Cost & Maintenance Manager</p>
+</header>
+
+<main>
+
+  <h2 th:text="${vehicle.vehicleId == null}
+            ? 'Add New Vehicle'
+            : 'Edit Vehicle'">
+    Vehicle Form
+  </h2>
+
+  <form th:action="@{${vehicle.vehicleId == null ? '/vehicles/add' : '/vehicles/edit/' + vehicle.vehicleId}}"
+        th:object="${vehicle}"
+        method="post">
+
+    <!-- Make -->
+    <label for="make">Make</label>
+    <input type="text" id="make"
+           th:field="*{make}"
+           th:classappend="${#fields.hasErrors('make')} ? 'input-error' : ''"
+           required>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('make')}"
+         th:errors="*{make}">
+    </div>
+
+    <!-- Model -->
+    <label for="model">Model</label>
+    <input type="text" id="model"
+           th:field="*{model}"
+           th:classappend="${#fields.hasErrors('model')} ? 'input-error' : ''"
+           required>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('model')}"
+         th:errors="*{model}">
+    </div>
+
+    <!-- Year -->
+    <label for="year">Year</label>
+    <input type="number" id="year"
+           th:field="*{year}"
+           th:classappend="${#fields.hasErrors('year')} ? 'input-error' : ''"
+           required>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('year')}"
+         th:errors="*{year}">
+    </div>
+
+    <!-- Mileage -->
+    <label for="mileage">Mileage</label>
+    <input type="number" id="mileage"
+           th:field="*{mileage}"
+           th:classappend="${#fields.hasErrors('mileage')} ? 'input-error' : ''"
+           step="0.01" required>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('mileage')}"
+         th:errors="*{mileage}">
+    </div>
+
+    <!-- Asking Price -->
+    <label for="askingPrice">Asking Price</label>
+    <input type="number" id="askingPrice"
+           th:field="*{askingPrice}"
+           th:classappend="${#fields.hasErrors('askingPrice')} ? 'input-error' : ''"
+           step="0.01" required>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('askingPrice')}"
+         th:errors="*{askingPrice}">
+    </div>
+
+    <!-- Market Value -->
+    <label for="marketValue">Market Value</label>
+    <input type="number" id="marketValue"
+           th:field="*{marketValue}"
+           th:classappend="${#fields.hasErrors('marketValue')} ? 'input-error' : ''"
+           step="0.01" required>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('marketValue')}"
+         th:errors="*{marketValue}">
+    </div>
+
+    <!-- Accident Claim Amount -->
+    <label for="accidentClaimAmount">Accident Claim Amount</label>
+    <input type="number" id="accidentClaimAmount"
+           th:field="*{accidentClaimAmount}"
+           th:classappend="${#fields.hasErrors('accidentClaimAmount')} ? 'input-error' : ''"
+           step="0.01">
+
+    <div class="error"
+         th:if="${#fields.hasErrors('accidentClaimAmount')}"
+         th:errors="*{accidentClaimAmount}">
+    </div>
+
+    <!-- Estimated Repairs -->
+    <label for="estimatedRepairs">Estimated Repairs</label>
+    <input type="number" id="estimatedRepairs"
+           th:field="*{estimatedRepairs}"
+           th:classappend="${#fields.hasErrors('estimatedRepairs')} ? 'input-error' : ''"
+           step="0.01" required>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('estimatedRepairs')}"
+         th:errors="*{estimatedRepairs}">
+    </div>
+
+    <!-- Ownership Count -->
+    <label for="ownershipCount">Ownership Count</label>
+    <input type="number" id="ownershipCount"
+           th:field="*{ownershipCount}"
+           th:classappend="${#fields.hasErrors('ownershipCount')} ? 'input-error' : ''"
+           required>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('ownershipCount')}"
+         th:errors="*{ownershipCount}">
+    </div>
+
+    <!-- Inspection Status -->
+    <label for="inspectionStatus">Inspection Status</label>
+    <select id="inspectionStatus"
+            th:field="*{inspectionStatus}"
+            th:classappend="${#fields.hasErrors('inspectionStatus')} ? 'input-error' : ''"
+            required>
+      <option value="">-- Select Inspection Status --</option>
+      <option value="true">Passed</option>
+      <option value="false">Not Passed</option>
+    </select>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('inspectionStatus')}"
+         th:errors="*{inspectionStatus}">
+    </div>
+
+    <!-- Other Costs -->
+    <label for="otherCosts">Other Costs</label>
+    <input type="number" id="otherCosts"
+           th:field="*{otherCosts}"
+           th:classappend="${#fields.hasErrors('otherCosts')} ? 'input-error' : ''"
+           step="0.01" required>
+
+    <div class="error"
+         th:if="${#fields.hasErrors('otherCosts')}"
+         th:errors="*{otherCosts}">
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit"
+            th:text="${vehicle.vehicleId == null}
+                        ? 'Save Vehicle'
+                        : 'Update Vehicle'">
+      Save Vehicle
+    </button>
+
+    <!-- Cancel Button -->
+    <a class="button" th:href="@{/vehicles}">
+      Cancel
+    </a>
+
+  </form>
+
+</main>
+
+</body>
+</html>
